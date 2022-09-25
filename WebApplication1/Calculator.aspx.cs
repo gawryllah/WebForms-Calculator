@@ -47,7 +47,7 @@ namespace WebApplication1
 
             if (!(double.TryParse(numberA.Text, out a) && double.TryParse(numberB.Text, out b)))
             {
-                if (outputLbl.Text.Length == 0)
+                if (numberA.Text.Length == 0 || numberB.Text.Length == 0)
                     return;
 
                 outputLbl.Text = $"Niepoprawne dane! Nalezy wpisac tylko liczby.\nDane wejsciowe: {numberA.Text}, {numberB.Text}";

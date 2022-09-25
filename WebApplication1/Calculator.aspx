@@ -26,9 +26,9 @@
         <asp:Button ID="calcBtn" runat="server" Text="Wykonaj operacje" CssClass="calc-button" OnClick="calcBtn_Click" />
 
     </div>
-     <div class="grid">
+     <div>
     
-         <asp:GridView ID="grid" runat="server" CellPadding="5" ForeColor="#333333" GridLines="None" Width="80%"  HorizontalAlign="Center" style="margin-top:25px">
+         <asp:GridView ID="grid" runat="server" CellPadding="5" ForeColor="#333333" GridLines="None" Width="80%"  HorizontalAlign="Center" style="margin-top:10px">
              <AlternatingRowStyle BackColor="White" />
              <EditRowStyle BackColor="#2461BF" />
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
