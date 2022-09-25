@@ -121,17 +121,6 @@ namespace WebApplication1
                 grid.DataBind();
             }
         }
-
-        /*
-        protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            grid.PageIndex = e.NewPageIndex;
-            this.DataBind();
-        }
-        */
-
-
-
     }
 
     public class Operation
