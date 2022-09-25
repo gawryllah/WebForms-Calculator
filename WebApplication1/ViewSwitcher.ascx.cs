@@ -1,11 +1,7 @@
+using Microsoft.AspNet.FriendlyUrls.Resolvers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Routing;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
 namespace WebApplication1
 {
@@ -32,7 +28,7 @@ namespace WebApplication1
             if (switchViewRoute == null)
             {
                 // Friendly URLs is not enabled or the name of the switch view route is out of sync
-                this.Visible = false;
+                Visible = false;
                 return;
             }
             var url = GetRouteUrl(switchViewRouteName, new { view = AlternateView, __FriendlyUrls_SwitchViews = true });
