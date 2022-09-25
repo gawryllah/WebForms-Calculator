@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOperation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Operation>
+    <operationDate>2022-09-25T18:47:20.8846502+02:00</operationDate>
+    <operationVale>5 + 2 = 7</operationVale>
+  </Operation>
+  <Operation>
+    <operationDate>2022-09-25T18:47:28.3470913+02:00</operationDate>
+    <operationVale>10 + 2 = 12</operationVale>
+  </Operation>
+  <Operation>
+    <operationDate>2022-09-25T18:47:33.1448632+02:00</operationDate>
+    <operationVale>5 + 2 = 7</operationVale>
+  </Operation>
+</ArrayOfOperation>

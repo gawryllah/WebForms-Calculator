@@ -28,7 +28,7 @@
     </div>
      <div class="center">
     
-         <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+         <asp:GridView ID="grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
              <AlternatingRowStyle BackColor="White" />
              <EditRowStyle BackColor="#2461BF" />
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -41,7 +41,7 @@
              <SortedDescendingCellStyle BackColor="#E9EBEF" />
              <SortedDescendingHeaderStyle BackColor="#4870BE" />
          </asp:GridView>
-         <asp:XmlDataSource ID="XmlDataSource1" runat="server"></asp:XmlDataSource>
+         <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/Data/Operations.xml"></asp:XmlDataSource>
     
      </div>
 </asp:Content>

@@ -60,13 +60,13 @@ namespace WebApplication1
         protected global::System.Web.UI.WebControls.Button calcBtn;
 
         /// <summary>
-        /// Kontrolka GridView1.
+        /// Kontrolka grid.
         /// </summary>
         /// <remarks>
         /// Pole generowane automatycznie.
         /// Aby wprowadzić zmiany, przenieś deklarację pola z pliku projektanta do pliku codebehind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView grid;
 
         /// <summary>
         /// Kontrolka XmlDataSource1.
