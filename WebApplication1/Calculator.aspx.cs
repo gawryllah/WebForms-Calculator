@@ -22,45 +22,46 @@ namespace WebApplication1
 
             if (!(double.TryParse(numberA.Text, out a) && double.TryParse(numberB.Text, out b)))
             {
+                if (outputLbl.Text.Length == 0)
+                    return;
 
-                outputLbl.Text = $"Nie poprawne dane! Nalezy wpisac tylko liczby.\nDane wejsciowe: {numberA.Text}, {numberB.Text}";
+                outputLbl.Text = $"Niepoprawne dane! Nalezy wpisac tylko liczby.\nDane wejsciowe: {numberA.Text}, {numberB.Text}";
                 return;
             }
 
-
-            if (operation.Text == "+")
+            if (operation.SelectedIndex == 0)
             {
                 var result = await client.addAsync(a, b);
 
                 outputLbl.Text = result.result.ToString("F2");
             }
-            else if (operation.Text == "-")
+            else if (operation.SelectedIndex == 1)
             {
-
                 var result = await client.subAsync(a, b);
 
                 outputLbl.Text = result.result.ToString("F2");
             }
-            else if (operation.Text == "/")
+            else if (operation.SelectedIndex == 2)
             {
                 var result = await client.divAsync(a, b);
 
                 outputLbl.Text = result.result.ToString("F2");
 
             }
-            else if (operation.Text == "*")
+            else if (operation.SelectedIndex == 3)
             {
                 var result = await client.mulAsync(a, b);
 
                 outputLbl.Text = result.result.ToString("F2");
 
             }
-            else if (operation.Text == "^")
+            else if (operation.SelectedIndex == 4)
             {
                 var result = await client.powAsync(a, b);
 
                 outputLbl.Text = result.result.ToString("F2");
             }
+
 
         }
 
