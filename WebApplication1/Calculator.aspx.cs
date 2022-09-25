@@ -1,9 +1,7 @@
-﻿using Newtonsoft.Json.Schema;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Serialization;
 using WebApplication1.CalcService;
@@ -15,7 +13,7 @@ namespace WebApplication1
         calcPortTypeClient client;
         string path = "~/Data/Operations.xml";
 
-        
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,7 +22,15 @@ namespace WebApplication1
             client = new calcPortTypeClient("calc");
             if (!IsPostBack)
             {
-                LoadData(path);
+                try
+                {
+                    Operation.Load(mappedPath);
+                    LoadData(mappedPath);
+                }
+                catch
+                {
+                    throw;
+                }
             }
         }
 
@@ -51,38 +57,47 @@ namespace WebApplication1
             {
                 var result = await client.addAsync(a, b);
 
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now, operationVale = $"{a} {operation.Text} {b} = {result.result}" });
+                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
 
                 outputLbl.Text = result.result.ToString("F2");
             }
             else if (operation.SelectedIndex == 1)
             {
                 var result = await client.subAsync(a, b);
-
+                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
                 outputLbl.Text = result.result.ToString("F2");
             }
             else if (operation.SelectedIndex == 2)
             {
                 var result = await client.divAsync(a, b);
-
+                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
                 outputLbl.Text = result.result.ToString("F2");
 
             }
             else if (operation.SelectedIndex == 3)
             {
                 var result = await client.mulAsync(a, b);
-
+                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
                 outputLbl.Text = result.result.ToString("F2");
 
             }
             else if (operation.SelectedIndex == 4)
             {
                 var result = await client.powAsync(a, b);
-
+                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
                 outputLbl.Text = result.result.ToString("F2");
             }
 
 
+        }
+
+
+        void SaveOperation(string path, Operation operation)
+        {
+            var mappedPath = Server.MapPath(path);
+
+            Operation.Save(mappedPath);
+            LoadData(mappedPath);
         }
 
         void LoadData(string path)
@@ -106,18 +121,13 @@ namespace WebApplication1
             }
         }
 
-        void SaveOperation(string path, Operation operation)
-        {
-            var mappedPath = Server.MapPath(path);
-
-            Operation.Save(mappedPath);
-        }
-
+        /*
         protected void OnPageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             grid.PageIndex = e.NewPageIndex;
             this.DataBind();
         }
+        */
 
 
 
@@ -125,14 +135,16 @@ namespace WebApplication1
 
     public class Operation
     {
-        public  static List<Operation> operations = new List<Operation>();
+        public static List<Operation> operations = new List<Operation>();
 
         public Operation()
         {
             operations.Add(this);
         }
 
-        public DateTime operationDate { get; set; }
+        [XmlAttribute("Operation Date")]
+        public string operationDate { get; set; }
+        [XmlAttribute("Operation Value")]
         public string operationVale { get; set; }
 
         public static void Save(string FileName)
@@ -141,48 +153,23 @@ namespace WebApplication1
             {
                 var serializer = new XmlSerializer(typeof(List<Operation>));
 
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("", "");
-
                 serializer.Serialize(writer, operations);
                 writer.Flush();
             }
         }
 
-        public static Operation Load(string FileName)
+        public static void Load(string path)
         {
-            using (var stream = System.IO.File.OpenRead(FileName))
+            if (!File.Exists(path))
+                return;
+
+            using (var stream = System.IO.File.OpenRead(path))
             {
-                var serializer = new XmlSerializer(typeof(Operation));
-                return serializer.Deserialize(stream) as Operation;
+                var serializer = new XmlSerializer(typeof(List<Operation>));
+                operations = serializer.Deserialize(stream) as List<Operation>;
             }
         }
-
-        /*
-        public void Save(string FileName)
-        {
-            using (var writer = new System.IO.StreamWriter(FileName))
-            {
-                var serializer = new XmlSerializer(this.GetType());
-
-                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                ns.Add("", "");
-
-                serializer.Serialize(writer, this, ns);
-                writer.Flush();
-            }
-        }
-
-        public static Operation Load(string FileName)
-        {
-            using (var stream = System.IO.File.OpenRead(FileName))
-            {
-                var serializer = new XmlSerializer(typeof(Operation));
-                return serializer.Deserialize(stream) as Operation;
-            }
-        }
-        */
     }
 
-   
+
 }

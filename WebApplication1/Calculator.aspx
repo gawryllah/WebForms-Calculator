@@ -26,7 +26,7 @@
         <asp:Button ID="calcBtn" runat="server" Text="Wykonaj operacje" CssClass="calc-button" OnClick="calcBtn_Click" />
 
     </div>
-     <div class="center">
+     <div class="grid">
     
          <asp:GridView ID="grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
              <AlternatingRowStyle BackColor="White" />
@@ -41,7 +41,6 @@
              <SortedDescendingCellStyle BackColor="#E9EBEF" />
              <SortedDescendingHeaderStyle BackColor="#4870BE" />
          </asp:GridView>
-         <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/Data/Operations.xml"></asp:XmlDataSource>
     
      </div>
 </asp:Content>

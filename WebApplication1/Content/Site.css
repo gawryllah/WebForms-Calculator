@@ -100,7 +100,15 @@ textarea {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
+    padding: 150px;
+}
+
+.grid {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 150px;
+    column-gap:20px;
 }
 
 .columns {
