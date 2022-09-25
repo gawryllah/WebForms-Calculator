@@ -28,7 +28,7 @@
     </div>
      <div class="grid">
     
-         <asp:GridView ID="grid" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None">
+         <asp:GridView ID="grid" runat="server" CellPadding="5" ForeColor="#333333" GridLines="None" Width="80%"  HorizontalAlign="Center" style="margin-top:25px">
              <AlternatingRowStyle BackColor="White" />
              <EditRowStyle BackColor="#2461BF" />
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />

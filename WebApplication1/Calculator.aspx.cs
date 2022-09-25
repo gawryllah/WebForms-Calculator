@@ -20,6 +20,7 @@ namespace WebApplication1
             var mappedPath = Server.MapPath(path);
 
             client = new calcPortTypeClient("calc");
+
             if (!IsPostBack)
             {
                 try
