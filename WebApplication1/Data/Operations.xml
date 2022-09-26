@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfOperation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Operation Operation_x0020_Date="2022-09-26T18:09:25.675833+02:00" Operation_x0020_Value="5 + 5 = 10" />
+  <Operation Operation_x0020_Date="2022-09-26T18:09:27.4874534+02:00" Operation_x0020_Value="5 - 5 = 0" />
+  <Operation Operation_x0020_Date="2022-09-26T18:09:28.9824797+02:00" Operation_x0020_Value="5 / 5 = 1" />
+  <Operation Operation_x0020_Date="2022-09-26T18:09:30.3885866+02:00" Operation_x0020_Value="5 * 5 = 25" />
+  <Operation Operation_x0020_Date="2022-09-26T18:09:31.7556078+02:00" Operation_x0020_Value="5 ^ 5 = 3125" />
+</ArrayOfOperation>

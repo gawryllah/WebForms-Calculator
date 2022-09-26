@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Serialization;
 using WebApplication1.CalcService;
@@ -35,7 +36,7 @@ namespace WebApplication1
             }
         }
 
-        protected async void calcBtn_Click(object sender, EventArgs e)
+        protected void calcBtn_Click(object sender, EventArgs e)
         {
 
 
@@ -54,46 +55,15 @@ namespace WebApplication1
                 return;
             }
 
-            if (operation.SelectedIndex == 0)
-            {
-                var result = await client.addAsync(a, b);
 
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
-
-                outputLbl.Text = result.result.ToString("F2");
-            }
-            else if (operation.SelectedIndex == 1)
-            {
-                var result = await client.subAsync(a, b);
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
-                outputLbl.Text = result.result.ToString("F2");
-            }
-            else if (operation.SelectedIndex == 2)
-            {
-                var result = await client.divAsync(a, b);
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
-                outputLbl.Text = result.result.ToString("F2");
-
-            }
-            else if (operation.SelectedIndex == 3)
-            {
-                var result = await client.mulAsync(a, b);
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
-                outputLbl.Text = result.result.ToString("F2");
-
-            }
-            else if (operation.SelectedIndex == 4)
-            {
-                var result = await client.powAsync(a, b);
-                SaveOperation(path, new Operation() { operationDate = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss"), operationVale = $"{a} {operation.Text} {b} = {result.result}" });
-                outputLbl.Text = result.result.ToString("F2");
-            }
+            CreateOperation(client, a, b, operation);
+            SaveOperation(path);
 
 
         }
 
 
-        void SaveOperation(string path, Operation operation)
+        void SaveOperation(string path)
         {
             var mappedPath = Server.MapPath(path);
 
@@ -121,6 +91,30 @@ namespace WebApplication1
                 grid.DataBind();
             }
         }
+
+        void CreateOperation(calcPortTypeClient ptc, double a, double b, DropDownList operation)
+        {
+
+            switch (operation.Text)
+            {
+                case "+":
+                    new Operation() { operationDate = DateTime.Now, operationValue = $"{a} {operation.Text} {b} = {ptc.addAsync(a, b).Result.result}" };
+                    break;
+                case "-":
+                    new Operation() { operationDate = DateTime.Now, operationValue = $"{a} {operation.Text} {b} = {ptc.subAsync(a, b).Result.result}" };
+                    break;
+                case "/":
+                    new Operation() { operationDate = DateTime.Now, operationValue = $"{a} {operation.Text} {b} = {ptc.divAsync(a, b).Result.result}" };
+                    break;
+                case "*":
+                    new Operation() { operationDate = DateTime.Now, operationValue = $"{a} {operation.Text} {b} = {ptc.mulAsync(a, b).Result.result}" };
+                    break;
+                case "^":
+                    new Operation() { operationDate = DateTime.Now, operationValue = $"{a} {operation.Text} {b} = {ptc.powAsync(a, b).Result.result}" };
+                    break;
+            }
+
+        }
     }
 
     public class Operation
@@ -133,13 +127,13 @@ namespace WebApplication1
         }
 
         [XmlAttribute("Operation Date")]
-        public string operationDate { get; set; }
+        public DateTime operationDate { get; set; }
         [XmlAttribute("Operation Value")]
-        public string operationVale { get; set; }
+        public string operationValue { get; set; }
 
-        public static void Save(string FileName)
+        public static void Save(string path)
         {
-            using (var writer = new System.IO.StreamWriter(FileName))
+            using (var writer = new System.IO.StreamWriter(path))
             {
                 var serializer = new XmlSerializer(typeof(List<Operation>));
 
